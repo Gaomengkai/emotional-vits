@@ -157,9 +157,11 @@ def get_hparams(init=True):
                       help='original VITS G checkpoint path')
   parser.add_argument('--ckptD', type=str, required=False,
                       help='original VITS D checkpoint path')
+  parser.add_argument('-o','--output',type=str, default="./logs",
+                      help='output directory')
+                      
   args = parser.parse_args()
-  model_dir = os.path.join("./logs", args.model)
-
+  model_dir = os.path.join(args.output, args.model)
   if not os.path.exists(model_dir):
     os.makedirs(model_dir)
 
