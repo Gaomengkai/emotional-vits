@@ -52,6 +52,9 @@ python emotion_extract.py --filelists filelists/train.txt filelists/val.txt
 # nene
 python train_ms.py -c configs/nene.json -m nene
 
+# sora
+python train_ms.py -c configs/sora.json -m sora
+
 # if you are fine tuning pretrained original VITS checkpoint ,
 python train_ms.py -c configs/nene.json -m nene --ckptD /path/to/D_xxxx.pth --ckptG /path/to/G_xxxx.pth
 

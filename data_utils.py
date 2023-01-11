@@ -216,9 +216,18 @@ class TextAudioSpeakerLoader(torch.utils.data.Dataset):
         audio_norm = audio / self.max_wav_value
         audio_norm = audio_norm.unsqueeze(0)
         spec_filename = filename.replace(".wav", ".spec.pt")
-        if os.path.exists(spec_filename):
+        # if os.path.exists(spec_filename):
+        try:
             spec = torch.load(spec_filename)
-        else:
+        except Exception as e:
+            if isinstance(e, FileNotFoundError):
+                print(f"ERROR: {spec_filename} NOT FOUND")
+            elif isinstance(e, RuntimeError):
+                print(f"ERROR: RUNNING ERROR {spec_filename}")
+            else:
+                print(f"ERROR: WHEN READING {spec_filename}")
+                raise e
+        # else:
             spec = spectrogram_torch(audio_norm, self.filter_length,
                 self.sampling_rate, self.hop_length, self.win_length,
                 center=False)
